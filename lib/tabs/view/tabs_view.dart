@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learning_manager_flutter_ver1/notes/page/notes_page.dart';
 
+import '../../quotes/view/inspiration_view.dart';
+
 
 class TabsView extends StatefulWidget {
   const TabsView({Key? key}) : super(key: key);
@@ -70,7 +72,7 @@ class _TabsViewState extends State<TabsView> {
           automaticallyImplyLeading: false),
       body: TabBarView(
         children: [
-          buildPage('Inspiration'),
+          InspirationView(),
           NotesPage(),
           buildPage('Goals test')
         ],
