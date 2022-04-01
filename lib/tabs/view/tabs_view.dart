@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:learning_manager_flutter_ver1/goals/view/goals_view.dart';
 import 'package:learning_manager_flutter_ver1/notes/page/notes_page.dart';
 
 import '../../quotes/view/inspiration_view.dart';
@@ -74,7 +75,7 @@ class _TabsViewState extends State<TabsView> {
         children: [
           InspirationView(),
           NotesPage(),
-          buildPage('Goals test')
+          GoalsView(),
         ],
       ),
     ),

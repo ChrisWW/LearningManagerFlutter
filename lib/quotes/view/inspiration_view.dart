@@ -59,8 +59,9 @@ class _InspirationViewState extends State<InspirationView> {
       });
 
       // https://forismatic.com/en/api/
+
       var response = await http.post(
-          Uri.encodeFull('http://api.forismatic.com/api/1.0/'),
+          Uri.parse(Uri.encodeFull('http://api.forismatic.com/api/1.0/')),
           body: {"method": "getQuote", "format": "json", "lang": "en"});
       setState(() {
         try {
@@ -89,7 +90,6 @@ class _InspirationViewState extends State<InspirationView> {
 
   // When copy button clicked, copy the quote to clipboard
   copyQuote() {
-
     Clipboard.setData(ClipboardData(text: (quote + "\n- " + owner))).then((_){
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Quote Copied")));
     });
@@ -100,7 +100,7 @@ class _InspirationViewState extends State<InspirationView> {
     // });
   }
 
-  saveQuoteFavourites() async {
+  addToFavourites() async {
     print("save in favoruties");
   }
 
@@ -110,7 +110,9 @@ class _InspirationViewState extends State<InspirationView> {
         .path; //from path_provide package
     String path =
         '$directory/screenshots${DateTime.now().toIso8601String()}.png';
-    screenshotController.capture(path: path).then((_) {
+
+    //path: path in argument with nev versions?
+    screenshotController.capture().then((_) {
       Share.shareFiles([path], text: quote);
     }).catchError((onError) {
       print(onError);
@@ -119,10 +121,10 @@ class _InspirationViewState extends State<InspirationView> {
 
   // get image of the quote author, using Wikipedia Api
   getImg(String name) async {
-    var image = await http.get(
+    var image = await http.get(Uri.parse(
         "https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrlimit=1&prop=pageimages%7Cextracts&pithumbsize=400&gsrsearch=" +
             name +
-            "&format=json");
+            "&format=json"));
 
     setState(() {
       try {
@@ -237,7 +239,7 @@ class _InspirationViewState extends State<InspirationView> {
               child: Icon(Icons.share, size: 30, color: Colors.white),
             ),
             InkWell(
-              onTap: quote.isNotEmpty ? saveQuoteFavourites() : null,
+              onTap: quote.isNotEmpty ? () => addToFavourites() : null,
               child: Icon(Icons.add_box_outlined, size: 30, color: Colors.white),
             )
           ]),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_manager_flutter_ver1/notes/page/notes_page.dart';
+import 'package:learning_manager_flutter_ver1/tabs/page/drawer_page.dart';
 import 'package:learning_manager_flutter_ver1/tabs/view/tabs_view.dart';
 
 void main() {
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TabsView(),
+      home: DrawerPage(),
     );
   }
 }
