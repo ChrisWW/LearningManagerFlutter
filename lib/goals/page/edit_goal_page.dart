@@ -48,8 +48,10 @@ class _AddEditGoalPageState extends State<AddEditGoalPage> {
   }
 
   @override
-  Widget build(BuildContext context) =>
-      Scaffold(
+  Widget build(BuildContext context) {
+    return Provider(
+      create: (_) => AppDatabase(),
+      child: Scaffold(
         appBar: AppBar(
           actions: [buildButton()],
         ),
@@ -69,23 +71,10 @@ class _AddEditGoalPageState extends State<AddEditGoalPage> {
                 setState(() => this.timeGoal = timeGoal),
           ),
         ),
-      );
+      )
 
-  Widget buildButton() {
-    final isFormValid = title.isNotEmpty && minutesPerDay.isNotEmpty && timeGoal.isNotEmpty;
-
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          onPrimary: Colors.white,
-          primary: isFormValid ? null : Colors.grey.shade700,
-        ),
-        onPressed: addOrUpdateGoal,
-        child: Text('Save'),
-      ),
     );
-  }
+}
 
   // Expanded _addOrUpdateGoal(BuildContext context) {
   //   return Expanded(
@@ -201,6 +190,23 @@ class _AddEditGoalPageState extends State<AddEditGoalPage> {
     await database.deleteGoal(goal);
 
   }
+
+  Widget buildButton() {
+    final isFormValid = title.isNotEmpty && minutesPerDay.isNotEmpty && timeGoal.isNotEmpty;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          onPrimary: Colors.white,
+          primary: isFormValid ? null : Colors.grey.shade700,
+        ),
+        onPressed: addOrUpdateGoal,
+        child: Text('Save'),
+      ),
+    );
+  }
+
 
   // void resetValuesAfterSubmit() {
   //   setState(() {
